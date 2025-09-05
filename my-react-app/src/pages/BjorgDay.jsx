@@ -12,9 +12,8 @@ import {
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
 const BjorgDay = () => {
-  const [showDog, setShowDog] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   const audioRef = useRef(null);
-  const dogAudioRef = useRef(null);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -23,24 +22,17 @@ const BjorgDay = () => {
   }, []);
 
   useEffect(() => {
-    if (dogAudioRef.current) {
-      dogAudioRef.current.volume = 0.12;
-    }
-  }, [showDog]);
-
-  useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.muted = showDog;
+      audioRef.current.muted = showThankYou;
     }
-  }, [showDog]);
+  }, [showThankYou]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
       const minutes = now.getMinutes();
-      setShowDog(minutes % 5 === 0);
+      setShowThankYou(minutes % 5 === 0);
     }, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -57,15 +49,15 @@ const BjorgDay = () => {
       {/* Background Music */}
       <audio
         ref={audioRef}
-        src="/audio/xG-newDance.mp3"
+        src="/audio/GrooveMerchantPLUJazzEnsemble.mp3"
         autoPlay
         loop
         controls={false}
         style={{ display: "none" }}
       />
 
-      {/* Dog Overlay */}
-      {showDog && (
+      {/* Thank You Overlay */}
+      {showThankYou && (
         <Box
           sx={{
             position: "fixed",
@@ -99,26 +91,16 @@ const BjorgDay = () => {
           </Box>
           <img
             src="/images/Bjug-Harstad1.jpg"
-            alt="Chris's Dog"
+            alt=""
             style={{
               width: "200px",
               height: "200px",
               borderRadius: "20px",
               boxShadow: "0 0 30px #000",
-              animation: "slideInDog 0.7s cubic-bezier(.68, -0.55, .27, 1.55)",
+              animation: "slideIn 0.7s cubic-bezier(.68, -0.55, .27, 1.55)",
             }}
           />
-          <style>
-           
-          </style>
-          <audio
-            ref={dogAudioRef}
-            src="/audio/dog-Snarling.mp3"
-            autoPlay
-            loop
-            controls={false}
-            style={{ display: "none" }}
-          />
+          <style></style>
         </Box>
       )}
 
